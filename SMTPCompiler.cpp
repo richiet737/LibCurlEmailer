@@ -17,6 +17,7 @@ SMTPCompiler::SMTPCompiler(){
     recipients = NULL;
     
     upload_ctx.lines_read = 0;
+    msgLoaded = false;
     
     curl = curl_easy_init();
     
