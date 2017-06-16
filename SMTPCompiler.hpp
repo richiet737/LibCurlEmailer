@@ -59,9 +59,6 @@ private:
     const string CRLF = "\r\n";
     const char SMTP_TERMINATOR = '.';
     
-    //debug
-    char *aBuffer;
-    
     bool checkEmail(string& _email);
     
     CURL *curl;
@@ -75,10 +72,13 @@ private:
     };
     
     struct upload_status upload_ctx;
+    bool msgLoaded;
     
 public:
     SMTPCompiler();
     ~SMTPCompiler();
+    bool isMsgLoaded();
+    void setMsgLoaded(bool _msgLoaded);
     string getFrom();
     void setFrom(string& _from);
     string getUsername();
@@ -121,8 +121,12 @@ public:
         
         static vector<string> msgToSend;
 
-        if(msgToSend.size() ==0)
+        bool msgLoaded = smtpCompiler->isMsgLoaded();
+        if(!msgLoaded){
+            msgToSend.clear();
             msgToSend = smtpCompiler->getWholeMessage();
+            smtpCompiler->setMsgLoaded(true);
+        }
         
         const char *data;
         const string newLine = "\n";

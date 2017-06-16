@@ -41,6 +41,17 @@ SMTPCompiler::~SMTPCompiler(){
 }
 
 //public methods
+bool SMTPCompiler::isMsgLoaded(){
+    return msgLoaded;
+}
+void SMTPCompiler::setMsgLoaded(bool _msgLoaded){
+    msgLoaded = _msgLoaded;
+}
+
+string SMTPCompiler::getFrom(){
+    return from;
+}
+
 string SMTPCompiler::getFrom(){
     return from;
 }
