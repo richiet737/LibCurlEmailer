@@ -62,9 +62,7 @@ private:
     bool checkEmail(string& _email);
     
     CURL *curl;
-    //CURLM *mcurl;
     
-    CURLcode res;
     struct curl_slist *recipients;
     
     struct upload_status {
@@ -103,7 +101,7 @@ public:
     vector<string> getAttachmentList();
     void setAttachmentList(vector<string> _attachments);
     
-    void send();
+    CURLcode send();
     
     void print();
     

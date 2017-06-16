@@ -14,7 +14,6 @@
 
 SMTPCompiler::SMTPCompiler(){
     
-    res = CURLE_OK;
     recipients = NULL;
     
     upload_ctx.lines_read = 0;
@@ -46,10 +45,6 @@ bool SMTPCompiler::isMsgLoaded(){
 }
 void SMTPCompiler::setMsgLoaded(bool _msgLoaded){
     msgLoaded = _msgLoaded;
-}
-
-string SMTPCompiler::getFrom(){
-    return from;
 }
 
 string SMTPCompiler::getFrom(){
@@ -159,9 +154,11 @@ void SMTPCompiler::setAttachmentList(vector<string> _attachments){
         attachmentList = _attachments;
 }
 
-void SMTPCompiler::send(){
+CURLcode SMTPCompiler::send(){
     
+    CURLcode res = CURLE_OK;;
     string errorMsg = "";
+    
     
     //get the completed message components
     header = getHeader();
@@ -226,7 +223,7 @@ void SMTPCompiler::send(){
     }
     
     cout << errorMsg << endl;
-    
+    return res;
 }
 
 vector<string> SMTPCompiler::getHeader(){
